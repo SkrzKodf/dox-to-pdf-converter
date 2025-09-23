@@ -14,7 +14,7 @@ export class ConvertHttpService {
     const path = join(process.cwd(), `/templates/template.docx`);
     const bytes = readFileSync(path);
 
-    const buffer = this.doxReplacer.fillTemplate(bytes, body);
+    const buffer = this.doxReplacer.fillTemplate(bytes, body.data);
 
     return new Promise((resolve, reject) => {
       convert(buffer, '.pdf', undefined, (err, pdfBuf) => {
