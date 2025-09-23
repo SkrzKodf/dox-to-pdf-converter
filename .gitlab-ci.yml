@@ -1,0 +1,4 @@
+include:
+  - project: 'shared/gitlab-pipelines'
+    ref: main
+    file: '/web/.gitlab-ci.yml'

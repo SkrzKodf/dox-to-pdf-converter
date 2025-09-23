@@ -1,0 +1,22 @@
+app:
+  profile: <%= process.env.NODE_ENV %>
+  name: <%= process.env.SERVICE_NAME %>
+  host: <%= process.env.HOST %>
+  is-stend: <%= process.env.IS_STEND %>
+
+http:
+  port: <%= process.env.PORT || 3000 %>
+
+service:
+  system:
+    headers:
+      x-service-name: 'billing-navigator'
+  logging:
+    dev: <%= process.env.LOGGING_DEV || 'log,debug,warn,error,fatal' %>
+    prod: <%= process.env.LOGGING_PROD || 'log' %>
+
+swagger:
+  path: '/api'
+  jsonPath: '/api-json'
+  title: <%= process.env.SWAGGER_TITLE %>
+  description: <%= process.env.SWAGGER_DESC %>

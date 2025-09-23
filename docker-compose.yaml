@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+#  jaeger:
+#    image: jaegertracing/all-in-one:1.62.0
+#    environment:
+#      COLLECTOR_ZIPKIN_HOST_PORT: 9411
+#      COLLECTOR_OTLP_ENABLED: 'true'
+#    ports:
+#      - '6831:6831/udp' # Thrift UDP (agent)
+#      - '6832:6832/udp' # Thrift UDP (agent)
+#      - '5778:5778' # Configuration (agent)
+#      - '16686:16686' # Jaeger UI
+#      - '4317:4317' # OTLP gRPC
+#      - '4318:4318' # OTLP HTTP
+#      - '14250:14250' # Collector gRPC
+#      - '14268:14268' # Collector HTTP
+#      - '14269:14269' # Collector Admin
+#      - '9411:9411' # Zipkin
+#    restart: unless-stopped
+#    volumes:
+#      - ./data/jaeger:/tmp
+
+  nest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
+    dns:
+      - 8.8.8.8
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=development
+      - SERVICE_NAME=WordToPdfConverter
+      - PORT=3001
+      - HOST=http://fedorichev.sknt.ru:3001
+      - IS_STEND=false
+
+      - SWAGGER_TITLE=WordToPdfConverter
+      - SWAGGER_DESC='Сервис для конвертации doc в pdf.'
+    volumes:
+      - .:/usr/src/app
