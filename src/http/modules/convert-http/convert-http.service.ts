@@ -8,13 +8,12 @@ import { readFileSync } from 'node:fs';
 @Injectable()
 export class ConvertHttpService {
   constructor(private readonly doxReplacer: DoxReplacer) {}
-
   @Trace('DoxToPdfConverter.convert')
   convert(body: any): Promise<Buffer> {
     const path = join(process.cwd(), `/templates/template.docx`);
     const bytes = readFileSync(path);
 
-    const buffer = this.doxReplacer.fillTemplate(bytes, body.data);
+    const buffer = this.doxReplacer.fillTemplate(bytes, body);
 
     return new Promise((resolve, reject) => {
       convert(buffer, '.pdf', undefined, (err, pdfBuf) => {

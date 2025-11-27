@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { customValidationPipe } from '~src/http/pipes/custom-validation.pipe';
 import * as express from 'express';
+import * as multer from 'multer';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -25,6 +26,13 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: '1'
   });
+
+  app.use(
+    multer({
+      storage: multer.memoryStorage(), // или diskStorage, неважно
+      fileFilter: (req, file, cb) => cb(null, true) // отклоняем все файлы
+    }).any()
+  );
 
   app.useGlobalPipes(customValidationPipe);
 
