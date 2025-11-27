@@ -40,5 +40,3 @@ services:
 
       - SWAGGER_TITLE=WordToPdfConverter
       - SWAGGER_DESC='Сервис для конвертации doc в pdf.'
-    volumes:
-      - .:/usr/src/app
